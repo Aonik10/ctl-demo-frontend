@@ -1,0 +1,18 @@
+@import "../../styles/globals.module.scss";
+
+.side_bar {
+    z-index: 3;
+    height: 100vh;
+    min-width: 260px;
+    max-width: 260px;
+    background-color: $darker-blue;
+    color: $white-color;
+    box-shadow: 20px 0 50px 10px rgba(0, 0, 0, 0.6);
+    text-align: center;
+    padding: 0 40px;
+}
+
+.item {
+    margin: 30px 0;
+    width: 100%
+}

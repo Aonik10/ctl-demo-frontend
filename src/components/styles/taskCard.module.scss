@@ -1,0 +1,62 @@
+@import "../../styles/globals.module.scss";
+
+.taskCard {
+    @include defaultBoxShadow;
+    display: flex;
+    flex-direction: column;
+    margin: 2px;
+    border: 1px solid $dark-blue;
+    border-radius: 5px;
+    height: 330px;
+    background-color: $dark-blue;
+    min-width: 320px;
+    color: $white-color;
+}
+
+.task_img_container {
+    height: 150px;
+    overflow: hidden;
+}
+
+.task_img {
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+	background-position: center;
+    transition: transform 500ms;
+    background-size: cover;
+}
+
+.taskCard:hover .task_img,
+.taskCard:focus .task_img {
+  transform: scale(1.2);
+}
+
+.card_content {
+    flex: 1;
+    padding: 15px 20px;
+    background-color: $dark-blue;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.title {
+    font-size: 22px;
+    margin: 0 0 10px 0;
+}
+
+.task_description {
+    @include formatTextOverflowMultipleLines(3);
+    font-style: italic;
+    margin: 0 0 10px 0;
+}
+
+.btn_section {
+    @include flexCenteredSpaceBtwn
+}
+
+.delete_edit {
+    @include flexCentered;
+    width: 25%;
+}

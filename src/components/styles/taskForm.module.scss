@@ -1,0 +1,51 @@
+@import "../../styles/globals.module.scss";
+
+.task_form {
+    display: flex;
+    flex-direction: column;
+    color: $white-color;
+    font-family: 'PT Sans';
+    height: 700px;
+}
+
+.input_section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.labels {
+    color: $white-color;
+}
+
+.form_input {
+    width: 100%;
+}
+
+.form_textarea {
+    max-height: 100px;
+}
+
+.upload_item {
+    color: $white-color;
+
+    svg {
+        width: 20px;
+        height: 20px;
+        color: $white-color;
+    }
+}
+
+
+.submit_btn {
+    background-color: $dark-purple;
+    width: 100%;
+    height: 50px;
+    font-size: 24px;
+
+    &:hover {
+        background-color: $darker-purple !important;
+       
+    }
+}

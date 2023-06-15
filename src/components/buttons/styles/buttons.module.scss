@@ -1,0 +1,94 @@
+@import "../../../styles/globals.module.scss";
+
+.icon {
+
+    svg {
+        width: 33px;
+        height: 33px;
+    }
+}
+
+//STATUS BUTTON
+.status_btn {
+    width: 140px;
+    height: 40px;
+    background-color: transparent;
+    font-weight: 700;
+}
+
+.completed {
+    border: 1px solid $green;
+    color: $green;
+
+    &:hover {
+        color: black !important;
+        background-color: $green !important;
+    }
+}
+
+.pending {
+    border: 1px solid $light-yellow;
+    color: $light-yellow;
+
+    &:hover {
+        color: black !important;
+        background-color: $light-yellow !important;
+    }
+}
+
+
+//EDIT BUTTON
+.edit_btn {
+    @include resetBtn;
+    color: $white-color;
+    margin-left: 10px;
+    transition: color 300ms;
+
+    &:hover {
+        color: $green;
+        transition: color 300ms;
+    }
+}
+
+
+//ADD TASK BUTTON
+.add_task_btn {
+    @include resetBtn;
+    color: $white-color;
+    border-radius: 5px;
+    background-color: $dark-purple;
+    padding: 15px;
+    font-size: 28px;
+    transition: background-color 300ms;
+    width: 100%;
+
+    &:hover {
+        background-color: $darker-purple;
+        transition: background-color 300ms
+    }
+}
+
+//DELETE TASK BUTTON
+
+.delete_task_btn {
+    @include resetBtn;
+    transition: color 300ms;
+
+    &:hover {
+        color: $red;
+        transition: color 300ms;
+    }
+}
+
+//DOTTED TASK CARD BUTTON
+.dashed_task_card {
+    @include resetBtn;
+    font-size: 30px;
+    color: $white-color;
+    border: 3px dashed $white-color;
+    border-radius: 5px;
+    margin: 2px;
+    height: 330px;
+    min-width: 320px;
+    opacity: 0.3;
+}

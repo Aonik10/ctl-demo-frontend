@@ -1,0 +1,55 @@
+@import "../../styles/globals.module.scss";
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color: $darker-blue;
+    padding: 20px 50px;
+}
+
+.filters {
+    @include flexCenteredSpaceBtwn;
+    flex-wrap: wrap;
+}
+
+.filters > * {
+    margin: 0 10px 20px 0;
+}
+
+.search_bar {
+    width: 400px;
+}
+
+.tasks_container {
+    padding-right: 10px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-height: 900px;
+    scrollbar-width: thin; //no funciona :/
+    scrollbar-color: $darker-blue transparent; //no funciona :/
+
+    &::-webkit-scrollbar {
+        display: none;
+    } 
+}
+
+.current_tasks {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+	column-gap: 10px;
+    row-gap: 20px;
+	grid-template-rows: auto;
+}
+
+@media screen and (max-width: 1760px) {
+	.current_tasks {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+@media screen and (max-width: 1420px) {
+	.current_tasks {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}

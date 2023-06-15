@@ -1,0 +1,68 @@
+@import "../../styles/globals.module.scss";
+
+.logged_nav_bar {
+    position: sticky;
+    padding: 10px;
+    background-color: $darker-blue;
+    color: $white-color;
+    z-index: 2;
+}
+
+.items_container {
+    @include flexCenteredSpaceBtwn;
+}
+
+.welcome_message {
+    margin: 0 40px;
+}
+
+.language_selector {
+    width: 70px;
+    margin-right: 20px;
+}
+
+.main_items {
+    display: flex;
+    align-items: center
+}
+
+.profile_btn {
+    @include resetBtn;
+    border-radius: 15px;
+    width: 40px;
+    height: 40px;
+    
+    img {
+        border-radius: 15px;
+    }
+}
+
+.dropdown_menu {
+    position: absolute;
+    visibility: hidden;
+    top: 100%;
+    right: 0;
+    width: 200px;
+    background-color: $dark-blue-2;
+}
+
+.menu_active {
+    visibility: visible;
+}
+
+.dropdown_item {
+    display: flex;
+    align-items: center;
+    color: $white-color;
+    margin: 15px 10px;
+    font-size: 16px;
+    cursor: pointer;
+
+    &:hover {
+        color: $light-yellow;
+    }
+
+    .dropdown_item_logo {
+        margin: 0 10px 0 0
+    }
+}

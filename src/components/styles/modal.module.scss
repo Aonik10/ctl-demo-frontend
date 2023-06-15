@@ -1,0 +1,39 @@
+@import "../../styles/globals.module.scss";
+
+.modal {
+    @include flexCentered;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    height: 100%;
+    width: 100%;
+    background-color: hsla(0, 0%, 0%, 0.30);
+    animation: fadeIn 500ms
+}
+
+.fadeOut {
+    opacity: 0;
+    transition: opacity 500ms;
+}
+
+.modal_container {
+    background-color: $dark-blue;
+    border-radius: 5px;
+    width: 600px;
+    height: 700px;
+    z-index: 3;
+    margin-bottom: 100px;
+    padding: 30px;
+    animation: fadeIn 500ms, moveDown 1000ms;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes moveDown {
+    0% {margin-bottom: 250px}
+    100% {margin-bottom: 100px}
+}
