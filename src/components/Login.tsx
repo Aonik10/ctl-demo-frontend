@@ -43,14 +43,15 @@ export default function Login() {
             <div className={`${styles.flip_card} ${active && styles.flip_card_active}`}>
                 <div className={styles.flip_card_inner}>
                     <div className={styles.flip_card_front}>
-                        {error && <p className={styles.error}>Invalid user or password</p>}
                         <Form
                             name="normal_login"
                             className={styles.login_form}
                             initialValues={{ remember: true }}
                             onFinish={onLoginIn}
                         >
-                            {error && <p className={styles.error}>Invalid Username or Password</p>}
+                            <div className={styles.error_container}>
+                                {error && <p className={styles.error}>Invalid Username or Password</p>}
+                            </div>
                             <Form.Item
                                 name="username"
                                 rules={[{ required: true, message: "Please input your Username!" }]}

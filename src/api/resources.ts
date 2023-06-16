@@ -2,6 +2,20 @@ import { Task, TaskResponse, TaskUpd, TokenData } from "./interfaces";
 
 export const SERVER_URL = "http://127.0.0.1:8000";
 
+class NetworkError extends Error {
+    constructor(message: string) {
+        super(message);
+        this.name = "NetworkError";
+    }
+}
+
+class UnauthorizedError extends Error {
+    constructor() {
+        super("Unauthorized");
+        this.name = "UnauthorizedError";
+    }
+}
+
 async function request(url: string, method: string, body: any = null, contentType = "application/json") {
     const response = await fetch(url, {
         method: method,
@@ -12,6 +26,18 @@ async function request(url: string, method: string, body: any = null, contentTyp
         body: body,
     });
     await wait(200);
+
+    console.log(response.status);
+
+    if (response.status == 401) {
+        throw new UnauthorizedError();
+    }
+
+    if (response.status > 299) {
+        const responseBody = await response.json();
+        throw new Error(`Request failed with status ${response.status}: ${responseBody}`);
+    }
+
     return response.json();
 }
 
@@ -27,7 +53,12 @@ export async function getTasks(filter = "all"): Promise<TaskResponse[]> {
             filterParam = "?filter=false";
             break;
     }
-    return await request(SERVER_URL + "/tasks/" + filterParam, "GET");
+    try {
+        return await request(SERVER_URL + "/tasks/" + filterParam, "GET");
+    } catch (error) {
+        console.log(error);
+        console.log(error instanceof UnauthorizedError);
+    }
 }
 
 export async function createTask(task: Task): Promise<TaskResponse> {

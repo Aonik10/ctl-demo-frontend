@@ -12,9 +12,14 @@
     background-color: $darker-blue;
 }
 
+.error_container{
+  height: 40px;
+}
+
 .error {
     color: $red;
-    font-size: 18px;
+    font-size: 14px;
+    height: 0;
 }
 
 .login_form {
