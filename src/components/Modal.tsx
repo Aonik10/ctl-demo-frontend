@@ -1,8 +1,8 @@
 import styles from "./styles/modal.module.scss";
+import TaskForm from "./TaskForm";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { removeTask, setDisplay } from "../redux/Features/modalSlice";
-import TaskForm from "./TaskForm";
 
 interface ModalProps {
     refreshTasks: () => void;

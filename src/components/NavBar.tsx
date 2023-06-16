@@ -1,11 +1,11 @@
 import styles from "./styles/navBar.module.scss";
-
 import { useState } from "react";
 import { Select } from "antd";
 import { useDispatch } from "react-redux";
 import { setLanguage } from "../redux/Features/languageSlice";
 import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 interface NavBarProps {
     image: string;
@@ -29,10 +29,16 @@ function DropDownItem({ content, icon, onClick }: DropDownItemProps) {
 export default function NavBar({ image }: NavBarProps) {
     const { t } = useTranslation();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [active, setActive] = useState(false);
 
     const handleChange = (value: "en" | "es") => {
         dispatch(setLanguage(value));
+    };
+
+    const logout = () => {
+        localStorage.setItem("token", "");
+        navigate("/login");
     };
 
     return (
@@ -54,12 +60,12 @@ export default function NavBar({ image }: NavBarProps) {
                             <DropDownItem
                                 content={t("main.profile")}
                                 icon={<UserOutlined className={styles.dropdown_item_logo} />}
-                                onClick={() => console.log("Not ready tet")}
+                                onClick={() => console.log("Not ready yet")}
                             />
                             <DropDownItem
                                 content={t("main.logout")}
                                 icon={<LogoutOutlined className={styles.dropdown_item_logo} />}
-                                onClick={() => console.log("Not ready tet")}
+                                onClick={logout}
                             />
                         </div>
                     </div>

@@ -13,13 +13,22 @@
 }
 
 .error_container{
-	height: 40px;
+	height: 50px;
+}
+
+.message {
+  font-weight: 700;
+  font-size: 14px;
+  height: 0;
+  margin: 0
 }
 
 .error {
-    color: $red;
-    font-size: 14px;
-    height: 0;
+    color: red;
+}
+
+.success {
+    color: green;
 }
 
 .login_form {

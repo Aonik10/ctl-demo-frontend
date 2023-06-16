@@ -2,13 +2,6 @@ import { Task, TaskResponse, TaskUpd, TokenData } from "./interfaces";
 
 export const SERVER_URL = "http://127.0.0.1:8000";
 
-class NetworkError extends Error {
-    constructor(message: string) {
-        super(message);
-        this.name = "NetworkError";
-    }
-}
-
 class UnauthorizedError extends Error {
     constructor() {
         super("Unauthorized");
@@ -25,9 +18,7 @@ async function request(url: string, method: string, body: any = null, contentTyp
         },
         body: body,
     });
-    await wait(200);
-
-    console.log(response.status);
+    //await wait(200);
 
     if (response.status == 401) {
         throw new UnauthorizedError();
@@ -53,12 +44,7 @@ export async function getTasks(filter = "all"): Promise<TaskResponse[]> {
             filterParam = "?filter=false";
             break;
     }
-    try {
-        return await request(SERVER_URL + "/tasks/" + filterParam, "GET");
-    } catch (error) {
-        console.log(error);
-        console.log(error instanceof UnauthorizedError);
-    }
+    return await request(SERVER_URL + "/tasks/" + filterParam, "GET");
 }
 
 export async function createTask(task: Task): Promise<TaskResponse> {
@@ -79,9 +65,13 @@ export async function get_token(body: any): Promise<TokenData> {
 }
 
 export async function login(body: any): Promise<any> {
-    const response = await get_token(body);
-    localStorage.setItem("token", response.access_token);
-    return response;
+    try {
+        const response = await get_token(body);
+        localStorage.setItem("token", response.access_token);
+        return response;
+    } catch (error) {
+        if (error instanceof UnauthorizedError) return { error: "Invalid username or password" };
+    }
 }
 
 export async function createAccount(body: any): Promise<any> {

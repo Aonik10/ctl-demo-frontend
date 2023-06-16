@@ -5,38 +5,68 @@ import { createAccount, login } from "../api/resources";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
+interface OnLogInValues {
+    username: string;
+    password: string;
+}
+
+interface OnCreateUserValues {
+    username: string;
+    password: string;
+    repeat_password: string;
+}
+
 export default function Login() {
     const navigate = useNavigate();
-    const [error, setError] = useState(false);
+    const [error, setError] = useState<string | null>(null);
     const [active, setActive] = useState(false);
+    const [success, setSuccess] = useState(false);
 
-    const onLoginIn = async (values: any) => {
-        setError(false);
+    const validate_password = (pwd1: string, pwd2: string) => {
+        const regexPattern = "^(?=.*?[A-Z])(?=.*?[a-z]).{8,}$";
+        if (pwd1 != pwd2) {
+            setError("Passwords must match!");
+            return false;
+        }
+        if (!pwd1.match(regexPattern)) {
+            setError(
+                "Invalid Password, it must contain at least 8 characters, one uppercase letter and one lowercase letter"
+            );
+            return false;
+        }
+        return true;
+    };
+
+    const onLoginIn = async (values: OnLogInValues) => {
         try {
+            setError(null);
             const response = await login(values);
-            if (response.detail) {
-                throw new Error("Bad Credentials");
-            }
+            if (response.error) return setError(response.error);
             navigate("/");
-        } catch (e) {
-            setError(true);
+        } catch (error) {
+            setError("Something went wrong");
         }
     };
 
-    const onCreate = async (values: any) => {
-        setError(false);
+    const onCreate = async (values: OnCreateUserValues) => {
+        setError(null);
+        if (!validate_password(values.password, values.repeat_password)) throw new Error("Bad Credentials");
         try {
             const response = await createAccount(values);
-            setActive(!active);
+            setSuccess(true);
+            setTimeout(() => {
+                setActive(!active);
+                setSuccess(false);
+            }, 1000);
             return response;
         } catch (e) {
-            setError(true);
+            setError("Something went wrong");
         }
     };
 
     const handleClick = () => {
         setActive(!active);
-        setError(false);
+        setError(null);
     };
 
     return (
@@ -51,7 +81,7 @@ export default function Login() {
                             onFinish={onLoginIn}
                         >
                             <div className={styles.error_container}>
-                                {error && <p className={styles.error}>Invalid Username or Password</p>}
+                                {error && <p className={`${styles.error} ${styles.message}`}>{error}</p>}
                             </div>
                             <Form.Item
                                 name="username"
@@ -81,7 +111,8 @@ export default function Login() {
                             onFinish={onCreate}
                         >
                             <div className={styles.error_container}>
-                                {error && <p className={styles.error}>something went wrong!</p>}
+                                {error && <p className={`${styles.error} ${styles.message}`}>{error}</p>}
+                                {success && <p className={`${styles.success} ${styles.message}`}>User created!</p>}
                             </div>
                             <Form.Item
                                 name="username"
@@ -97,7 +128,7 @@ export default function Login() {
                             </Form.Item>
                             <Form.Item
                                 name="repeat_password"
-                                rules={[{ required: true, message: "Passwords must match!" }]}
+                                rules={[{ required: true, message: "Please repeat your password!" }]}
                             >
                                 <Input prefix={<LockOutlined />} type="password" placeholder="Repeat Password" />
                             </Form.Item>

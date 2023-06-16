@@ -1,16 +1,15 @@
 import styles from "./styles/app.module.scss";
-import { createHashRouter, Outlet, RouterProvider, useNavigation } from "react-router-dom";
 import NavBar from "./components/NavBar";
+import i18n from "./i18n";
 import SideBar from "./components/SideBar";
-import Error from "./components/Error";
 import Spinner from "./components/Spinner";
 import Dashboard from "./components/Dashboard";
+import Login from "./components/Login";
+import { createHashRouter, Outlet, RouterProvider, useNavigation } from "react-router-dom";
 import { getTasks } from "./api/resources";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
-import i18n from "./i18n";
 import { useEffect } from "react";
-import Login from "./components/Login";
 
 export const router = createHashRouter([
     {
