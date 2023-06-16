@@ -27,6 +27,7 @@ export default function Login() {
         setError(false);
         try {
             const response = await createAccount(values);
+            setActive(!active);
             return response;
         } catch (e) {
             setError(true);
@@ -73,13 +74,15 @@ export default function Login() {
                         </Form>
                     </div>
                     <div className={styles.flip_card_back}>
-                        {error && <p className={styles.error}>something went wrong!</p>}
                         <Form
                             name="create_account"
                             className={styles.login_form}
                             initialValues={{ remember: true }}
                             onFinish={onCreate}
                         >
+                            <div className={styles.error_container}>
+                                {error && <p className={styles.error}>something went wrong!</p>}
+                            </div>
                             <Form.Item
                                 name="username"
                                 rules={[{ required: true, message: "Please input your Username!" }]}
